@@ -33,7 +33,7 @@ attitude_bank = {
         "responded positively to support and showed improvement as the year went on"
     ],
     60: [
-        "engaged more effectively when tasks were well structured",
+        "engaged more effectively when tasks were simpler",
         "worked better when given a clear framework and adult support nearby"
     ],
     55: [
@@ -72,7 +72,7 @@ reading_bank = {
         "grasped key information across familiar text types when supported"
     ],
     65: [
-        "identified key information in texts with guidance",
+        "identified key information in texts with close guidance",
         "located relevant details in texts when given direction and support"
     ],
     60: [
