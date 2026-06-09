@@ -26,7 +26,7 @@ attitude_bank = {
     ],
     70: [
         "showed a good attitude and responded well to direction",
-        "engaged sensibly with tasks and improved when clear guidance was given"
+        "engaged sensibly with tasks and improved when focused"
     ],
     65: [
         "made steady progress and grew in confidence with encouragement",
