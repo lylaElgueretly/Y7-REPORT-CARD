@@ -8,7 +8,7 @@ from docx import Document
 import io
 from statements import *
 
-TARGET_CHARS = 650
+TARGET_CHARS = 499
 
 # ---------- HELPERS ----------
 def get_pronouns(gender):
@@ -57,7 +57,7 @@ def generate_comment(name, att, read, write, read_t, write_t, pronouns, attitude
     return comment
 
 # ---------- STREAMLIT APP ----------
-st.title("English Report Comment Generator (~650 chars)")
+st.title("English Report Comment Generator (~499 chars)")
 st.markdown(
     "Fill in the student details and click **Generate Comment**. You can add multiple students before downloading the full report."
 )
