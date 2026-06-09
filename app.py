@@ -22,6 +22,13 @@ def get_pronouns(gender):
 def lowercase_first(text):
     return text[0].lower() + text[1:] if text else ""
 
+def pick(bank, key):
+    """Pick a random option from a bank entry that may be a list or a string."""
+    val = bank[key]
+    if isinstance(val, list):
+        return random.choice(val)
+    return val
+
 def truncate_comment(comment, target=TARGET_CHARS):
     if len(comment) <= target:
         return comment
@@ -34,14 +41,13 @@ def generate_comment(name, att, read, write, read_t, write_t, pronouns, attitude
     p, p_poss = pronouns
     opening = random.choice(opening_phrases)
 
-    attitude_sentence = f"{opening} {name} {attitude_bank[att]}."
-    reading_sentence = f"In reading, {p} {reading_bank[read]}."
-    writing_sentence = f"In writing, {p} {writing_bank[write]}."
-    reading_target_sentence = f"For the next year, {p} should {lowercase_first(reading_target_bank[read_t])}."
-    writing_target_sentence = f"In addition, {p} should {lowercase_first(writing_target_bank[write_t])}."
-
+    attitude_sentence = f"{opening} {name} {pick(attitude_bank, att)}."
+    reading_sentence = f"In reading, {p} {pick(reading_bank, read)}."
+    writing_sentence = f"In writing, {p} {pick(writing_bank, write)}."
+    reading_target_sentence = f"For the next year, {p} should {lowercase_first(pick(reading_target_bank, read_t))}."
+    writing_target_sentence = f"In addition, {p} should {lowercase_first(pick(writing_target_bank, write_t))}."
     attitude_target_sentence = f" {lowercase_first(attitude_target)}" if attitude_target else ""
-    closer_sentence = random.choice(closer_bank)
+    closer_sentence = random.choice(closer_bank) + "."
 
     comment_parts = [
         attitude_sentence + attitude_target_sentence,
@@ -58,48 +64,63 @@ def generate_comment(name, att, read, write, read_t, write_t, pronouns, attitude
 
 # ---------- STREAMLIT APP ----------
 st.title("English Report Comment Generator (~499 chars)")
-st.markdown(
-    "Fill in the student details and click **Generate Comment**. You can add multiple students before downloading the full report."
-)
+st.markdown("Fill in the student details and click **Generate Comment**.")
 
-if 'all_comments' not in st.session_state:
-    st.session_state['all_comments'] = []
+if "all_comments" not in st.session_state:
+    st.session_state["all_comments"] = []
+
+if "generated_comment" not in st.session_state:
+    st.session_state["generated_comment"] = ""
+
+if "generated_name" not in st.session_state:
+    st.session_state["generated_name"] = ""
 
 # ---------- STUDENT FORM ----------
 with st.form("report_form"):
     name = st.text_input("Student Name")
     gender = st.selectbox("Gender", ["Male", "Female"])
-    att = st.selectbox("Attitude band", [90,85,80,75,70,65,60,55,40])
-    read = st.selectbox("Reading achievement band", [90,85,80,75,70,65,60,55,40])
-    write = st.selectbox("Writing achievement band", [90,85,80,75,70,65,60,55,40])
-    read_t = st.selectbox("Reading target band", [90,85,80,75,70,65,60,55,40])
-    write_t = st.selectbox("Writing target band", [90,85,80,75,70,65,60,55,40])
-
+    att = st.selectbox("Attitude band", [90,85,80,75,70,65,60,55,40,0])
+    read = st.selectbox("Reading achievement band", [90,85,80,75,70,65,60,55,40,0])
+    write = st.selectbox("Writing achievement band", [90,85,80,75,70,65,60,55,40,0])
+    read_t = st.selectbox("Reading target band", [90,85,80,75,70,65,60,55,40,35])
+    write_t = st.selectbox("Writing target band", [90,85,80,75,70,65,60,55,40,35])
     attitude_target = st.text_input("Optional Attitude Next Steps")
     submitted = st.form_submit_button("Generate Comment")
 
 if submitted and name:
     pronouns = get_pronouns(gender)
-    comment = generate_comment(name, att, read, write, read_t, write_t, pronouns, attitude_target)
-    edited_comment = st.text_area("Generated Comment (editable)", value=comment, height=200)
-    st.write(f"Character count (including spaces): {len(edited_comment)} / {TARGET_CHARS}")
+    st.session_state["generated_comment"] = generate_comment(
+        name, att, read, write, read_t, write_t, pronouns, attitude_target
+    )
+    st.session_state["generated_name"] = name
+
+if st.session_state["generated_comment"]:
+    edited = st.text_area(
+        "Generated Comment (editable)",
+        value=st.session_state["generated_comment"],
+        height=200,
+        key="edit_area"
+    )
+    st.write(f"Character count: {len(edited)} / {TARGET_CHARS}")
 
     if st.button("Add Comment to Report"):
-        st.session_state['all_comments'].append(f"{name}: {edited_comment}")
-        st.success(f"Comment for {name} added.")
+        st.session_state["all_comments"].append(
+            f"{st.session_state['generated_name']}: {edited}"
+        )
+        st.session_state["generated_comment"] = ""
+        st.session_state["generated_name"] = ""
         st.rerun()
 
-# ---------- SHOW ALL COMMENTS ----------
-if st.session_state['all_comments']:
+# ---------- ALL COMMENTS ----------
+if st.session_state["all_comments"]:
     st.markdown("### All Generated Comments:")
-    for c in st.session_state['all_comments']:
+    for c in st.session_state["all_comments"]:
         st.write(c)
 
-# ---------- DOWNLOAD FULL REPORT ----------
-if st.session_state['all_comments']:
+    # ---------- DOWNLOAD ----------
     file_stream = io.BytesIO()
     doc = Document()
-    for c in st.session_state['all_comments']:
+    for c in st.session_state["all_comments"]:
         doc.add_paragraph(c)
     doc.save(file_stream)
     file_stream.seek(0)
