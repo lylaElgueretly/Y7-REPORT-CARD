@@ -1,85 +1,79 @@
 # statements.py
 # This file contains ONLY text banks (no logic)
-# Updated to reflect a full academic year's work:
-# Persuasive articles, speech writing, news reports,
-# non-chronological reports, and narrative writing.
 
 opening_phrases = [
-    "As the year draws to a close,",
-    "Looking back over the year,",
-    "By the end of this year,",
-    "Reflecting on the year as a whole,",
-    "Across this academic year,",
-    "By the close of this year,"
+    "This year,",
+    "This term,",
+    "In English,"
 ]
 
 attitude_bank = {
-    90: "showed exceptional drive and curiosity, consistently going beyond what was asked",
-    85: "worked with real commitment throughout, rarely needing prompting to engage",
-    80: "took ownership of learning and contributed with confidence across all areas",
-    75: "put in reliable effort and engaged constructively with tasks all year",
-    70: "engaged well when given clear direction and showed a willingness to try",
-    65: "grew in confidence as the year progressed and responded well to encouragement",
-    60: "engaged more readily when tasks were structured and support was available",
-    55: "required regular prompting to stay focused, though effort improved on familiar work",
-    40: "found it difficult to sustain concentration and needed consistent adult support",
-    0:  "needed substantial support across most activities to remain engaged"
+    90: "brought outstanding enthusiasm and curiosity to learning throughout",
+    85: "showed exceptional commitment and rarely needed prompting to engage",
+    80: "demonstrated a confident and positive attitude throughout the year",
+    75: "worked reliably and engaged well with tasks across the year",
+    70: "showed a good attitude and responded well to direction",
+    65: "made steady progress and grew in confidence with encouragement",
+    60: "engaged more effectively when tasks were well structured",
+    55: "needed regular support to stay focused but showed effort on familiar tasks",
+    40: "found concentration difficult and required consistent adult support",
+    0:  "needed significant support to engage with learning"
 }
 
 reading_bank = {
-    90: "read perceptively, questioning authorial choices and drawing confident conclusions",
-    85: "made thoughtful inferences and showed strong awareness of how texts are constructed",
-    80: "showed solid comprehension and could explain how structure and language worked together",
-    75: "followed a variety of texts with good understanding, identifying key features clearly",
-    70: "grasped the main points across familiar text types with some support",
-    65: "identified key information in texts with guidance and growing confidence",
-    60: "understood straightforward texts and benefited from pre-reading discussion",
-    55: "followed short, clear texts on familiar topics with adult support",
-    40: "found reading challenging and relied on adult help to access meaning",
-    0:  "is at an early stage of reading; work focused on word recognition and simple texts"
+    90: "read with real insight, analysing language and authorial choices with confidence",
+    85: "read confidently, making strong inferences across a range of texts",
+    80: "showed secure understanding and identified how language and structure worked",
+    75: "understood a variety of texts and picked out key features effectively",
+    70: "understood the main ideas in familiar texts with some support",
+    65: "identified key information in texts with guidance",
+    60: "understood simple texts and benefited from discussion beforehand",
+    55: "followed familiar texts with adult support",
+    40: "needed help to access meaning in most texts",
+    0:  "is working on early reading skills with adult support"
 }
 
 writing_bank = {
-    90: "wrote with flair and control, handling each text type with skill and purpose",
-    85: "produced confident writing across text types, making deliberate choices throughout",
-    80: "wrote purposefully across the year with well-judged shifts in tone and structure",
-    75: "structured work clearly and chose vocabulary with care across text types",
-    70: "communicated ideas coherently and applied familiar text features consistently",
-    65: "organised writing with support, producing responses that addressed the task",
-    60: "produced short structured pieces when given a clear model to follow",
-    55: "completed writing tasks with close guidance; independence was developing",
-    40: "needed support throughout the writing process; output was brief but present",
-    0:  "is at an early stage of writing; work focused on forming simple sentences"
+    90: "wrote with skill and confidence across all text types studied",
+    85: "produced purposeful writing with strong control of structure and vocabulary",
+    80: "wrote effectively across text types with appropriate tone and organisation",
+    75: "organised writing clearly and used vocabulary well across the year",
+    70: "communicated ideas clearly and used familiar text structures consistently",
+    65: "produced organised writing with support across a range of tasks",
+    60: "wrote short structured responses with a model to follow",
+    55: "completed writing tasks with guidance; independence was developing",
+    40: "produced brief written responses with considerable support",
+    0:  "is working on early writing skills with adult support"
 }
 
 reading_target_bank = {
-    90: "analyse how writers use language and structure for effect in complex texts",
-    85: "extend inference by exploring why writers make specific structural choices",
-    80: "develop sensitivity to connotation, implied tone, and subtle language choices",
-    75: "move from identifying text features to explaining their effect on the reader",
-    70: "build confidence reading longer texts and piecing together implied meaning",
-    65: "encounter a wider range of text types and identify their key conventions",
-    60: "monitor understanding while reading and use context to tackle new vocabulary",
-    55: "build reading fluency and practise retelling what has been read",
-    40: "read short texts with support and practise identifying the main message",
-    35: "spend regular time with familiar texts to build stamina and confidence"
+    90: "analyse how language and structure create effects in complex texts",
+    85: "develop inference skills and examine how structure shapes meaning",
+    80: "explore the effect of subtle language choices on the reader",
+    75: "explain why authors use specific features, not just identify them",
+    70: "read longer texts independently and piece together implied meaning",
+    65: "read a wider range of texts and identify their key conventions",
+    60: "use context clues to work out unfamiliar words while reading",
+    55: "build fluency and retell what has been read in own words",
+    40: "read short texts with support and identify the main idea",
+    35: "build reading stamina using familiar and accessible texts"
 }
 
 writing_target_bank = {
-    90: "take risks with language and structure to create more sophisticated effects",
-    85: "focus on precision in word choice so that every decision serves the writing",
-    80: "develop control over pace and rhythm by using sentence length deliberately",
-    75: "experiment with more complex sentence structures and ambitious vocabulary",
-    70: "reread work as a reader and assess whether tone and structure match purpose",
-    65: "plan thoroughly, mapping out the key features of each text type before writing",
-    60: "practise drafting and improving, strengthening one specific feature at a time",
-    55: "use writing frames more independently to include key features of each text type",
-    40: "focus on writing complete linked sentences and building short paragraphs",
-    35: "rehearse sentences aloud before writing and use shared writing to build confidence"
+    90: "manipulate language and structure to achieve deliberate effects",
+    85: "refine word choices so that every decision serves the writing",
+    80: "control pace and rhythm by varying sentence length deliberately",
+    75: "use more ambitious vocabulary and varied sentence structures",
+    70: "check that tone and structure match the purpose of each piece",
+    65: "plan writing carefully and include key features from the outset",
+    60: "draft and improve writing by focusing on one feature at a time",
+    55: "use writing frames to include the key features of each text type",
+    40: "write in complete sentences and begin to link ideas in paragraphs",
+    35: "build confidence by rehearsing sentences before writing them down"
 }
 
 closer_bank = [
-    "A productive year with a strong platform to build on",
-    "Real progress has been made and the foundations are in place for the year ahead",
-    "The effort put in this year is clear; a confident start to next year is well within reach"
+    "A positive year overall with good progress made",
+    "A strong year with much to build on going forward",
+    "Good foundations laid this year for the year ahead"
 ]
