@@ -23,7 +23,6 @@ def lowercase_first(text):
     return text[0].lower() + text[1:] if text else ""
 
 def pick(bank, key):
-    """Pick a random option from a bank entry that may be a list or a string."""
     val = bank[key]
     if isinstance(val, list):
         return random.choice(val)
@@ -40,7 +39,6 @@ def truncate_comment(comment, target=TARGET_CHARS):
 def generate_comment(name, att, read, write, read_t, write_t, pronouns, attitude_target=None):
     p, p_poss = pronouns
     opening = random.choice(opening_phrases)
-
     attitude_sentence = f"{opening} {name} {pick(attitude_bank, att)}."
     reading_sentence = f"In reading, {p} {pick(reading_bank, read)}."
     writing_sentence = f"In writing, {p} {pick(writing_bank, write)}."
@@ -59,21 +57,21 @@ def generate_comment(name, att, read, write, read_t, write_t, pronouns, attitude
     ]
 
     comment = " ".join(comment_parts)
-    comment = truncate_comment(comment, TARGET_CHARS)
-    return comment
+    return truncate_comment(comment, TARGET_CHARS)
+
+# ---------- SESSION STATE INIT ----------
+if "all_comments" not in st.session_state:
+    st.session_state["all_comments"] = []
+if "generated_comment" not in st.session_state:
+    st.session_state["generated_comment"] = ""
+if "generated_name" not in st.session_state:
+    st.session_state["generated_name"] = ""
+if "generate_count" not in st.session_state:
+    st.session_state["generate_count"] = 0
 
 # ---------- STREAMLIT APP ----------
 st.title("English Report Comment Generator (~499 chars)")
 st.markdown("Fill in the student details and click **Generate Comment**.")
-
-if "all_comments" not in st.session_state:
-    st.session_state["all_comments"] = []
-
-if "generated_comment" not in st.session_state:
-    st.session_state["generated_comment"] = ""
-
-if "generated_name" not in st.session_state:
-    st.session_state["generated_name"] = ""
 
 # ---------- STUDENT FORM ----------
 with st.form("report_form"):
@@ -93,13 +91,16 @@ if submitted and name:
         name, att, read, write, read_t, write_t, pronouns, attitude_target
     )
     st.session_state["generated_name"] = name
+    st.session_state["generate_count"] += 1  # force new widget key each time
 
 if st.session_state["generated_comment"]:
+    # Using generate_count in the key forces Streamlit to treat this as a
+    # brand new widget each time Generate is clicked, so the new text always shows
     edited = st.text_area(
         "Generated Comment (editable)",
         value=st.session_state["generated_comment"],
         height=200,
-        key="edit_area"
+        key=f"edit_area_{st.session_state['generate_count']}"
     )
     st.write(f"Character count: {len(edited)} / {TARGET_CHARS}")
 
